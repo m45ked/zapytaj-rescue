@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pliki archiwum i bazy danych
+warcs/
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.warc
+*.warc.gz
+
+# Środowisko i klucze
+.env
+.venv/
+env/
+venv/
+
+# IDE i edytory
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Systemowe
+.DS_Store
+Thumbs.db
+

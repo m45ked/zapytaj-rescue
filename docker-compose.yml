@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  worker:
+    build: .
+    container_name: zapytaj-worker
+    restart: unless-stopped
+    environment:
+      - VOLUNTEER_NAME=${VOLUNTEER_NAME:-anonymous_volunteer}
+      - COORDINATOR_URL=${COORDINATOR_URL:-http://norbert232.mikrus.xyz:20232}
+      - REQUESTS_PER_SECOND=${REQUESTS_PER_SECOND:-4.0}
+      - CONCURRENCY=${CONCURRENCY:-3}
+      - AUTO_UPLOAD=${AUTO_UPLOAD:-true}
+      - IA_ACCESS_KEY=${IA_ACCESS_KEY:-}
+      - IA_SECRET_KEY=${IA_SECRET_KEY:-}
+    volumes:
+      - ./warcs:/app/warcs
+      - ./data:/app/data
+
+  coordinator:
+    build: .
+    container_name: zapytaj-coordinator
+    restart: unless-stopped
+    command: ["server", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    profiles:
+      - server
